@@ -13,6 +13,7 @@
         <item>ScaleIn</item>
         <item>RotateDown and Alpha</item>
         <item>RotateDown and Alpha And ScaleIn</item>
+        <item>Add Transform Can Vertical Scroll</item>
     </string-array>
 
 </resources>

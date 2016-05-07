@@ -2,6 +2,7 @@ package com.zhy.magicviewpager.transformer;
 
 import android.annotation.TargetApi;
 import android.os.Build;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
@@ -39,14 +40,21 @@ public class ScaleInTransformer extends BasePageTransformer
         int pageWidth = view.getWidth();
         int pageHeight = view.getHeight();
 
-        view.setPivotY(pageHeight / 2);
-        view.setPivotX(pageWidth / 2);
+//        view.setPivotY(pageHeight / 2);
+//        view.setPivotX(pageWidth / 2);
+        ViewCompat.setPivotY(view,pageHeight / 2);
+        ViewCompat.setPivotX(view,pageWidth /2);
+
         if (position < -1)
         { // [-Infinity,-1)
             // This page is way off-screen to the left.
-            view.setScaleX(mMinScale);
-            view.setScaleY(mMinScale);
-            view.setPivotX(pageWidth);
+//            view.setScaleX(mMinScale);
+//            view.setScaleY(mMinScale);
+//            view.setPivotX(pageWidth);
+            ViewCompat.setScaleX(view,mMinScale);
+            ViewCompat.setScaleY(view,mMinScale);
+            ViewCompat.setPivotX(view,pageWidth);
+
         } else if (position <= 1)
         { // [-1,1]
             // Modify the default slide transition to shrink the page as well
@@ -54,25 +62,35 @@ public class ScaleInTransformer extends BasePageTransformer
             {
 
                 float scaleFactor = (1 + position) * (1 - mMinScale) + mMinScale;
-                view.setScaleX(scaleFactor);
-                view.setScaleY(scaleFactor);
+//                view.setScaleX(scaleFactor);
+//                view.setScaleY(scaleFactor);
+//
+//                view.setPivotX(pageWidth * (DEFAULT_CENTER + (DEFAULT_CENTER * -position)));
 
-                view.setPivotX(pageWidth * (DEFAULT_CENTER + (DEFAULT_CENTER * -position)));
+                ViewCompat.setScaleX(view,scaleFactor);
+                ViewCompat.setScaleY(view,scaleFactor);
+                ViewCompat.setPivotX(view,pageWidth * (DEFAULT_CENTER + (DEFAULT_CENTER * -position)));
 
             } else //1-2:2[1,0] ;2-1:2[0,1]
             {
                 float scaleFactor = (1 - position) * (1 - mMinScale) + mMinScale;
-                view.setScaleX(scaleFactor);
-                view.setScaleY(scaleFactor);
-                view.setPivotX(pageWidth * ((1 - position) * DEFAULT_CENTER));
+//                view.setScaleX(scaleFactor);
+//                view.setScaleY(scaleFactor);
+//                view.setPivotX(pageWidth * ((1 - position) * DEFAULT_CENTER));
+                ViewCompat.setScaleX(view,scaleFactor);
+                ViewCompat.setScaleY(view,scaleFactor);
+                ViewCompat.setPivotX(view,pageWidth * ((1 - position) * DEFAULT_CENTER));
             }
 
 
         } else
         { // (1,+Infinity]
-            view.setPivotX(0);
-            view.setScaleX(mMinScale);
-            view.setScaleY(mMinScale);
+//            view.setPivotX(0);
+//            view.setScaleX(mMinScale);
+//            view.setScaleY(mMinScale);
+            ViewCompat.setPivotX(view,0);
+            ViewCompat.setScaleX(view,mMinScale);
+            ViewCompat.setScaleY(view,mMinScale);
         }
     }
 }

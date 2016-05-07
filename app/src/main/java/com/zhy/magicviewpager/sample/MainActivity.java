@@ -1,5 +1,6 @@
 package com.zhy.magicviewpager.sample;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -118,6 +119,9 @@ public class MainActivity extends AppCompatActivity
         }else if ("RotateDown and Alpha And ScaleIn".equals(title))
         {
             mViewPager.setPageTransformer(true, new RotateDownPageTransformer(new AlphaPageTransformer(new ScaleInTransformer())));
+        }else if ("Add Transform Can Vertical Scroll".equals(title))
+        {
+            startActivity(new Intent(MainActivity.this,SupportScrollActivity.class));
         }
 
         setTitle(title);
