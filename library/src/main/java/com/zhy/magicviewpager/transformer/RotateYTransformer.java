@@ -35,11 +35,12 @@ public class RotateYTransformer extends BasePageTransformer
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void pageTransform(View view, float position)
     {
+        view.setPivotY(view.getHeight()/2);
+
         if (position < -1)
         { // [-Infinity,-1)
             // This page is way off-screen to the left.
             view.setRotationY(-1 * mMaxRotate);
-            view.setPivotX(view.getWidth());
             view.setPivotX(view.getWidth());
         } else if (position <= 1)
         { // [-1,1]

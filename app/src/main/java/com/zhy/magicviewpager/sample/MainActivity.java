@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity
 
         mViewPager = (ViewPager) findViewById(R.id.id_viewpager);
 
-        mViewPager.setPageMargin(20);
+        mViewPager.setPageMargin(40);
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mAdapter = new PagerAdapter()
         {
@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity
             public Object instantiateItem(ViewGroup container, int position)
             {
                 ImageView view = new ImageView(MainActivity.this);
-                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                view.setLayoutParams(lp);
+//                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//                view.setLayoutParams(lp);
 //                view.setText(position + ":" + view);
                 view.setScaleType(ImageView.ScaleType.FIT_XY);
 //                view.setBackgroundColor(Color.parseColor("#44ff0000"));
@@ -71,9 +71,7 @@ public class MainActivity extends AppCompatActivity
                 return view == o;
             }
         });
-
-
-        mViewPager.setPageTransformer(true, new RotateDownPageTransformer());
+        mViewPager.setPageTransformer(true, new AlphaPageTransformer());
 
     }
 
@@ -100,14 +98,14 @@ public class MainActivity extends AppCompatActivity
             mViewPager.setPageTransformer(true, new RotateUpPageTransformer());
         } else if ("RotateY".equals(title))
         {
-            mViewPager.setPageTransformer(true, new RotateYTransformer());
+            mViewPager.setPageTransformer(true, new RotateYTransformer(45));
         } else if ("Standard".equals(title))
         {
-            mViewPager.setClipChildren(false);
+//            mViewPager.setClipChildren(false);
             mViewPager.setPageTransformer(true, NonPageTransformer.INSTANCE);
         } else if ("Alpha".equals(title))
         {
-            mViewPager.setClipChildren(false);
+//            mViewPager.setClipChildren(false);
             mViewPager.setPageTransformer(true, new AlphaPageTransformer());
         } else if ("ScaleIn".equals(title))
         {

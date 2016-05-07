@@ -33,6 +33,8 @@ public class AlphaPageTransformer extends BasePageTransformer
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void pageTransform(View view, float position)
     {
+        view.setScaleX( 0.999f);//hack
+
         if (position < -1)
         { // [-Infinity,-1)
             view.setAlpha(mMinAlpha);
@@ -41,11 +43,13 @@ public class AlphaPageTransformer extends BasePageTransformer
 
             if (position < 0) //[0，-1]
             {           //[1,min]
-                view.setAlpha(mMinAlpha + (1 - mMinAlpha) * (1 + position));
+                float factor = mMinAlpha + (1 - mMinAlpha) * (1 + position);
+                view.setAlpha(factor);
             } else//[1，0]
             {
                 //[min,1]
-                view.setAlpha(mMinAlpha + (1 - mMinAlpha) * (1 - position));
+                float factor = mMinAlpha + (1 - mMinAlpha) * (1 - position);
+                view.setAlpha(factor);
             }
         } else
         { // (1,+Infinity]

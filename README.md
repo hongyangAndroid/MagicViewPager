@@ -34,7 +34,7 @@
 ###（1）引入
 
 ```
-compile `com.zhy:magic-viewpager:1.0.0`
+compile `com.zhy:magic-viewpager:1.0.1`
 ```
 
 ###（2）示例
@@ -53,6 +53,7 @@ compile `com.zhy:magic-viewpager:1.0.0`
         android:id="@+id/id_viewpager"
         android:layout_width="match_parent"
         android:layout_marginLeft="60dp"
+        android:clipChildren="false"
         android:layout_marginRight="60dp"
         android:layout_height="120dp"
         android:layout_gravity="center"
@@ -86,7 +87,6 @@ mViewPager.setPageTransformer(true, new
 * NonPageTransformer
 * ScaleInTransformer
 
-其中AlphaPageTransformer、NonPageTransformer、单独使用，需要调用`  mViewPager.setClipChildren(false);`，其余不用。
 
 动画间可以自由组合，例如：
 
