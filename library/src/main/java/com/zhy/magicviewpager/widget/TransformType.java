@@ -1,5 +1,7 @@
 package com.zhy.magicviewpager.widget;
 
+import android.support.annotation.IntDef;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -14,8 +16,7 @@ public class TransformType {
     /**
      * 多少种Transform类型
      */
-    public static final int TYPE_COUNT = 6;
-
+    public static final int DEFAULT_TYPE_COUNT = 6;
 
 
     @TransformTypeChecker
@@ -36,7 +37,8 @@ public class TransformType {
     @TransformTypeChecker
     public static final int SCALE_IN_TRANSFORMER = 5;
 
-
+    @IntDef({NON_PAGETRANSFORMER,ALPHA_PAGETRANSFORMER,ROATE_DOWN_PAGETRANSFORMER,ROATE_UP_PAGETRANSFORMER,
+                ROTATE_Y_TRANSFORMER,SCALE_IN_TRANSFORMER})
     @Retention(RetentionPolicy.SOURCE)
     public @interface TransformTypeChecker{
 
