@@ -2,9 +2,11 @@ package com.zhy.magicviewpager.widget;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.os.Build;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -16,6 +18,7 @@ import android.widget.FrameLayout;
 import com.zhy.magicviewpager.R;
 import com.zhy.magicviewpager.transformer.AlphaPageTransformer;
 import com.zhy.magicviewpager.transformer.BasePageTransformer;
+import com.zhy.magicviewpager.transformer.NonPageTransformer;
 import com.zhy.magicviewpager.transformer.RotateDownPageTransformer;
 import com.zhy.magicviewpager.transformer.RotateUpPageTransformer;
 import com.zhy.magicviewpager.transformer.RotateYTransformer;
@@ -28,6 +31,7 @@ import com.zhy.magicviewpager.transformer.ScaleInTransformer;
  * update time:
  * email: 723526676@qq.com
  */
+@SuppressWarnings("ResourceType")
 public class MagicViewPager extends FrameLayout implements OnPageChangeListener{
 
 
@@ -35,7 +39,7 @@ public class MagicViewPager extends FrameLayout implements OnPageChangeListener{
     private int mPaddingLeft = 130;
     private int mPaddingRight = 130;
     private int mPageLimit = 3;
-    private int mTransformType;
+    @TransformType.TransformTypeChecker private int mTransformType = TransformType.NON_PAGETRANSFORMER;
 
 
     private Hacky mPager;
@@ -54,6 +58,7 @@ public class MagicViewPager extends FrameLayout implements OnPageChangeListener{
         this(context, attrs,0);
     }
 
+    @SuppressWarnings("ResourceType")
     public MagicViewPager(Context context,AttributeSet attrs,int defStyle){
         super(context, attrs,defStyle);
 
@@ -67,7 +72,7 @@ public class MagicViewPager extends FrameLayout implements OnPageChangeListener{
                 mPaddingLeft);
         mPaddingRight = a.getInteger(R.styleable.MagicViewPager_paddingRight,
                 mPaddingRight);
-        mTransformType = a.getInteger(R.styleable.MagicViewPager_transformType,-1);
+        mTransformType = a.getInteger(R.styleable.MagicViewPager_transformType,TransformType.NON_PAGETRANSFORMER);
         a.recycle();
         View.inflate(context,R.layout.magic_view_pager,this);
         mPager = (Hacky) findViewById(R.id.real_page);
@@ -77,6 +82,8 @@ public class MagicViewPager extends FrameLayout implements OnPageChangeListener{
         setDefaultTransform(mTransformType);
         init(context);
     }
+
+
 
     public void setTransformType(@TransformType.TransformTypeChecker int type){
         mTransformType = type;
@@ -104,6 +111,7 @@ public class MagicViewPager extends FrameLayout implements OnPageChangeListener{
                 mPageTransformer = null;
                 break;
         }
+        requestLayout();
     }
 
 
@@ -116,6 +124,12 @@ public class MagicViewPager extends FrameLayout implements OnPageChangeListener{
 
     public Hacky getViewPager(){
         return mPager;
+    }
+
+    public void setAdapter(PagerAdapter adapter){
+        if (mPager != null)
+            mPager.setAdapter(adapter);
+        else throw new NullPointerException("MagicViewPager's Hacky is null");
     }
 
     public void setMagicOffscreenPageLimit(int pagerDis) {
@@ -131,7 +145,7 @@ public class MagicViewPager extends FrameLayout implements OnPageChangeListener{
         mPager.setPageMargin(pagerMargin);
     }
 
-    public void setPageTransformer(BasePageTransformer transformer){
+    public void setPageTransformer(BasePageTransformer transformer) {
         mPageTransformer = transformer;
     }
 
@@ -179,6 +193,11 @@ public class MagicViewPager extends FrameLayout implements OnPageChangeListener{
                     continue;
                 final float transformPos = (float) (child.getLeft() - scrollX) / child.getWidth();
                 mPageTransformer.transformPage(child, transformPos);
+            }
+        }else {
+            for (int i = 0; i < childCount; i++) {
+                final View child = mPager.getChildAt(i);
+                child.requestLayout();
             }
         }
         if (mNeedRedraw)

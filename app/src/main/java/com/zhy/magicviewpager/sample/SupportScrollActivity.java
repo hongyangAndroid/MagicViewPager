@@ -1,72 +1,23 @@
 package com.zhy.magicviewpager.sample;
 
-import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.zhy.magicviewpager.transformer.AlphaPageTransformer;
-import com.zhy.magicviewpager.transformer.NonPageTransformer;
-import com.zhy.magicviewpager.transformer.RotateDownPageTransformer;
-import com.zhy.magicviewpager.transformer.RotateUpPageTransformer;
-import com.zhy.magicviewpager.transformer.RotateYTransformer;
-import com.zhy.magicviewpager.transformer.ScaleInTransformer;
-import com.zhy.magicviewpager.widget.MagicViewPager;
-
-import java.util.ArrayList;
 
 public class SupportScrollActivity extends AppCompatActivity {
 
-    private ArrayList<String> list;
-    private MagicViewPager mViewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.scroll_activity);
-        mViewPager = (MagicViewPager) findViewById(R.id.viewpager);
-        list = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            list.add(""+i);
-        }
-
-        SimplePagerAdapter adapter = new SimplePagerAdapter(getSupportFragmentManager());
-        mViewPager.getViewPager().setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        setContentView(R.layout.support_scroll_activity);
     }
 
-    public class SimplePagerAdapter  extends FragmentPagerAdapter {
 
-
-        public SimplePagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public int getCount() {
-            return 5;
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            return super.instantiateItem(container, position);
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return ScrollFragment.getInstance();
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -81,39 +32,39 @@ public class SupportScrollActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item)
     {
         String title = item.getTitle().toString();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        Bundle bundle = new Bundle();
         if ("RotateDown".equals(title))
         {
-            mViewPager.setPageTransformer(new RotateDownPageTransformer());
+            bundle.putInt(SupportScrollFragment.TRANSFORM_TYPE,2);
         } else if ("RotateUp".equals(title))
         {
-            mViewPager.setPageTransformer(new RotateUpPageTransformer());
+            bundle.putInt(SupportScrollFragment.TRANSFORM_TYPE,3);
         } else if ("RotateY".equals(title))
         {
-            mViewPager.setPageTransformer(new RotateYTransformer());
+            bundle.putInt(SupportScrollFragment.TRANSFORM_TYPE,4);
         } else if ("Standard".equals(title))
         {
-            mViewPager.setClipChildren(false);
-            mViewPager.setPageTransformer(null);
+            bundle.putInt(SupportScrollFragment.TRANSFORM_TYPE,0);
         } else if ("Alpha".equals(title))
         {
-            mViewPager.setClipChildren(false);
-            mViewPager.setPageTransformer(new AlphaPageTransformer());
+            bundle.putInt(SupportScrollFragment.TRANSFORM_TYPE,1);
         } else if ("ScaleIn".equals(title))
         {
-            mViewPager.setPageTransformer(new ScaleInTransformer());
+            bundle.putInt(SupportScrollFragment.TRANSFORM_TYPE,5);
         } else if ("RotateDown and Alpha".equals(title))
         {
-            mViewPager.setPageTransformer(new RotateDownPageTransformer(new AlphaPageTransformer()));
+            bundle.putInt(SupportScrollFragment.TRANSFORM_TYPE,6);
         }else if ("RotateDown and Alpha And ScaleIn".equals(title))
         {
-            mViewPager.setPageTransformer(new RotateDownPageTransformer(new AlphaPageTransformer(new ScaleInTransformer())));
+            bundle.putInt(SupportScrollFragment.TRANSFORM_TYPE,7);
         }else if ("Add Transform Can Vertical Scroll".equals(title))
         {
             onBackPressed();
         }
-
+        fragmentTransaction.replace(R.id.fragment_container,SupportScrollFragment.getInstance(bundle));
+        fragmentTransaction.commit();
         setTitle(title);
-
         return true;
     }
 }
