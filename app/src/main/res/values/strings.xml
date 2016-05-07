@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">MagicViewPager</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="magic_effect">
+        <item>RotateDown</item>
+        <item>RotateUp</item>
+        <item>RotateY</item>
+        <item>Standard</item>
+        <item>Alpha</item>
+        <item>ScaleIn</item>
+        <item>RotateDown and Alpha</item>
+        <item>RotateDown and Alpha And ScaleIn</item>
+    </string-array>
+
+</resources>
