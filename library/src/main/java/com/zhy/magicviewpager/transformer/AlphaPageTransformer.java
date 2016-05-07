@@ -2,6 +2,7 @@ package com.zhy.magicviewpager.transformer;
 
 import android.annotation.TargetApi;
 import android.os.Build;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
@@ -35,21 +36,25 @@ public class AlphaPageTransformer extends BasePageTransformer
     {
         if (position < -1)
         { // [-Infinity,-1)
-            view.setAlpha(mMinAlpha);
+//            view.setAlpha(mMinAlpha);
+            ViewCompat.setAlpha(view,mMinAlpha);
         } else if (position <= 1)
         { // [-1,1]
 
             if (position < 0) //[0，-1]
             {           //[1,min]
-                view.setAlpha(mMinAlpha + (1 - mMinAlpha) * (1 + position));
+//                view.setAlpha(mMinAlpha + (1 - mMinAlpha) * (1 + position));
+                ViewCompat.setAlpha(view,mMinAlpha + (1 - mMinAlpha) * (1 + position));
             } else//[1，0]
             {
                 //[min,1]
-                view.setAlpha(mMinAlpha + (1 - mMinAlpha) * (1 - position));
+//                view.setAlpha(mMinAlpha + (1 - mMinAlpha) * (1 - position));
+                ViewCompat.setAlpha(view,mMinAlpha + (1 - mMinAlpha) * (1 - position));
             }
         } else
         { // (1,+Infinity]
-            view.setAlpha(mMinAlpha);
+//            view.setAlpha(mMinAlpha);
+            ViewCompat.setAlpha(view,mMinAlpha + (1 - mMinAlpha) * (1 - position));
         }
     }
 }

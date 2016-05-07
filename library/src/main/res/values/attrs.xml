@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MagicViewPager">
+        <attr name="offscreenPageLimit" format="integer" />
+        <attr name="pagerMargin" format="integer" />
+        <attr name="paddingLeft" format="integer" />
+        <attr name="paddingRight" format="integer" />
+        <attr name="transformType" format="enum">
+            <enum name="none" value="0" />
+            <enum name="alpha" value="1" />
+            <enum name="rotateDown" value="2" />
+            <enum name="rotateUp" value="3"/>
+            <enum name="rotateY" value="4"/>
+            <enum name="scaleIn" value="5"/>
+        </attr>
+    </declare-styleable>
+</resources>

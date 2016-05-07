@@ -2,6 +2,7 @@ package com.zhy.magicviewpager.transformer;
 
 import android.annotation.TargetApi;
 import android.os.Build;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
@@ -37,30 +38,43 @@ public class RotateDownPageTransformer extends BasePageTransformer
         if (position < -1)
         { // [-Infinity,-1)
             // This page is way off-screen to the left.  
-            view.setRotation(mMaxRotate * -1);
-            view.setPivotX(view.getWidth());
-            view.setPivotY(view.getHeight());
+//            view.setRotation(mMaxRotate * -1);
+//            view.setPivotX(view.getWidth());
+//            view.setPivotY(view.getHeight());
+            ViewCompat.setRotation(view,mMaxRotate * -1);
+            ViewCompat.setPivotX(view,view.getWidth());
+            ViewCompat.setPivotY(view,view.getHeight());
 
         } else if (position <= 1)
         { // [-1,1]  
 
             if (position < 0)//[0，-1]
             {
-                view.setPivotX(view.getWidth() * (DEFAULT_CENTER + DEFAULT_CENTER * (-position)));
-                view.setPivotY(view.getHeight());
-                view.setRotation(mMaxRotate * position);
+//                view.setPivotX(view.getWidth() * (DEFAULT_CENTER + DEFAULT_CENTER * (-position)));
+//                view.setPivotY(view.getHeight());
+//                view.setRotation(mMaxRotate * position);
+                ViewCompat.setRotation(view,view.getWidth() * (DEFAULT_CENTER + DEFAULT_CENTER * (-position)));
+                ViewCompat.setPivotY(view,view.getHeight());
+                ViewCompat.setRotation(view,mMaxRotate * position);
+
             } else//[1,0]
             {
-                view.setPivotX(view.getWidth() * DEFAULT_CENTER * (1 - position));
-                view.setPivotY(view.getHeight());
-                view.setRotation(mMaxRotate * position);
+//                view.setPivotX(view.getWidth() * DEFAULT_CENTER * (1 - position));
+//                view.setPivotY(view.getHeight());
+//                view.setRotation(mMaxRotate * position);
+                ViewCompat.setPivotX(view,view.getWidth() * DEFAULT_CENTER * (1 - position));
+                ViewCompat.setPivotY(view,view.getHeight());
+                ViewCompat.setRotation(view,mMaxRotate * position);
             }
         } else
         { // (1,+Infinity]  
             // This page is way off-screen to the right.  
-            view.setRotation(mMaxRotate);
-            view.setPivotX(view.getWidth() * 0);
-            view.setPivotY(view.getHeight());
+//            view.setRotation(mMaxRotate);
+//            view.setPivotX(view.getWidth() * 0);
+//            view.setPivotY(view.getHeight());
+            ViewCompat.setRotation(view,mMaxRotate);
+            ViewCompat.setPivotX(view,view.getWidth() * 0);
+            ViewCompat.setPivotY(view,view.getHeight());
         }
     }
 }  
