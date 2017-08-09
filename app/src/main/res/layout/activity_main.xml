@@ -6,24 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:clipChildren="false"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="#aadc71ff"
-        >
-        <android.support.v4.view.ViewPager
-            android:id="@+id/id_viewpager"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="60dp"
-            android:layout_marginRight="60dp"
-            android:layout_height="120dp"
-            android:clipChildren="false"
-            android:layout_gravity="center"
-            >
-        </android.support.v4.view.ViewPager>
+        android:orientation="vertical">
 
-    </FrameLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="Standard ViewPager"
+            android:onClick="onStandardViewPager"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="Circle ViewPager"
+            android:onClick="onCircleViewPager"/>
+    </LinearLayout>
 
 </RelativeLayout>
