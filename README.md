@@ -31,13 +31,13 @@
 
 ## 使用
 
-###（1）引入
+### （1）引入
 
 ```
 compile `com.zhy:magic-viewpager:1.0.1`
 ```
 
-###（2）示例
+### （2）示例
 
 * 布局文件
 
@@ -78,7 +78,7 @@ mViewPager.setPageTransformer(true, new
 
 
 
-##目前可选动画
+## 目前可选动画
 
 * AlphaPageTransformer
 * RotateDownPageTransformer
@@ -95,7 +95,7 @@ mViewPager.setPageTransformer(true,
 	new RotateDownPageTransformer(new AlphaPageTransformer(new ScaleInTransformer())));
 ```
 
-##致谢
+## 致谢
 
 本文是我在审公众号投稿时，由本篇文章产生灵感：[Android超高仿QQ附近的人搜索展示（一）](http://mp.weixin.qq.com/s?__biz=MzAxMTI4MTkwNQ==&mid=2650820073&idx=1&sn=9e084723624180f7ab28e54f2aef132c&scene=23&srcid=0506b08maFirw2pBvnewcDsp#rd) ，ps:欢迎关注我的公众号。
 
